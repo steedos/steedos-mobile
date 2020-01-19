@@ -10,5 +10,13 @@ git checkout 最新版本分支
 cd mattermost-mobile 
 yarn 
 pod repo update
+make pre-run
 make ios
+```
+
+如果报 mattemost-redux 错误，可能是因为包没编译
+
+```
+cd node_modules\mattermost-redux
+yarn
 ```
