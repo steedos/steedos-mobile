@@ -1,6 +1,10 @@
 # Steedos 手机客户端
 
-## 编译 mattermost-mobile
+## 参考 
+
+https://developers.mattermost.com/contribute/mobile/build-your-own/preparation/
+
+## 初始化 mattermost-mobile
 
 在mac上执行以下命令
 
@@ -19,4 +23,18 @@ make ios
 ```bash
 cd node_modules/mattermost-redux
 yarn
+```
+
+## OEM
+
+```bash
+cp -r ./mattermost-mobile/assets/override ../mattermost-mobile/assets/override
+cp ./mattermost-mobile/fastlane/.env ../mattermost-mobile/fastlane/.env
+
+```
+
+## 编译 ios
+
+```bash
+make build-ios
 ```
