@@ -6,7 +6,7 @@
 
 ```
 git clone https://github.com/mattermost/mattermost-mobile
-git checkout 最新版本分支
+git checkout release-1.27 # 最新版本分支
 cd mattermost-mobile 
 yarn 
 pod repo update
