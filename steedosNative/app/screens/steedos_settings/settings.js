@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import {intlShape, injectIntl} from 'react-intl';
 import {Navigation} from 'react-native-navigation';
-import { dismissModal } from '../../actions/navigation'
+import { dismissModal } from 'app/actions/navigation'
 class Settings extends PureComponent {
     componentDidMount() {
         this.navigationEventListener = Navigation.events().bindComponent(this);
