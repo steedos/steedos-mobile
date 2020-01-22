@@ -5,9 +5,19 @@ import React, {PureComponent} from 'react';
 import {
     View,Text
 } from 'react-native';
+import {intlShape, injectIntl} from 'react-intl';
+import {Navigation} from 'react-native-navigation';
+import { dismissModal } from '../../actions/navigation'
 class Settings extends PureComponent {
-
     componentDidMount() {
+        this.navigationEventListener = Navigation.events().bindComponent(this);
+    }
+
+    navigationButtonPressed({buttonId}) {
+        console.log('navigationButtonPressed', buttonId);
+        if (buttonId === 'close-settings') {
+            dismissModal();
+        }
     }
 
     render() {
@@ -19,4 +29,4 @@ class Settings extends PureComponent {
     }
 }
 
-export default Settings;
+export default injectIntl(Settings);
