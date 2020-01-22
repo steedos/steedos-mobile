@@ -24,25 +24,24 @@ import {
   DebugInstructions,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-
-// import { showModal } from './app/actions/navigation'
+import { showModal } from './app/actions/navigation'
 
 const App: () => React$Node = () => {
 
-  // showApps = ()=>{
-  //   // Alert.alert('Button with adjusted color pressed')
-  //   console.log('showApps...');
-  //   const modalOptions = {
-  //       topBar: {
-  //           leftButtons: [{
-  //               id: 'close-settings',
-  //               icon: "close",
-  //           }],
-  //       },
-  //   };
-  //   showModal("SteedosSettings", '工作台', {}, modalOptions);
-  //   return ;
-  // }
+  showApps = ()=>{
+    // Alert.alert('Button with adjusted color pressed')
+    console.log('showApps...');
+    const modalOptions = {
+        topBar: {
+            leftButtons: [{
+                id: 'close-settings',
+                text: "close",
+            }],
+        },
+    };
+    showModal("SteedosSettings", '工作台', {}, modalOptions);
+    return ;
+  }
 
   return (
     <>
@@ -87,6 +86,7 @@ const App: () => React$Node = () => {
                 Read the docs to discover what to do next:
               </Text>
             </View>
+            
             <LearnMoreLinks />
           </View>
         </ScrollView>

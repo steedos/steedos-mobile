@@ -1,5 +1,5 @@
 import {Navigation} from 'react-native-navigation';
-
+import React from 'react';
 export function registerScreens(store, Provider) {
     // TODO consolidate this with app/utils/wrap_context_provider
     const wrapper = (Comp) => (props) => ( // eslint-disable-line react/display-name

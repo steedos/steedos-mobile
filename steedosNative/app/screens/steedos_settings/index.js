@@ -1,22 +1,15 @@
 // Copyright (c) 2015-present Mattermost, Inc. All Rights Reserved.
 // See LICENSE.txt for license information.
-
-import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import Settings from './settings';
 function mapStateToProps(state) {
-    const config = getConfig(state);
-
-    return {
-        config
-    };
+    console.log('mapStateToProps', state);
+    return state || {};
 }
 
 function mapDispatchToProps(dispatch) {
-    return {
-        actions: bindActionCreators({
-        }, dispatch),
-    };
+    console.log('mapDispatchToProps');
+    return {};
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Settings);
+export default connect(mapStateToProps)(Settings);

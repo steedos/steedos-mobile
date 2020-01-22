@@ -2,7 +2,6 @@
 // See LICENSE.txt for license information.
 
 import React, {PureComponent} from 'react';
-import {injectIntl} from 'react-intl';
 import {
     View,Text
 } from 'react-native';
@@ -20,4 +19,4 @@ class Settings extends PureComponent {
     }
 }
 
-export default injectIntl(Settings);
+export default Settings;
