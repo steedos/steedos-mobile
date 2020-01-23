@@ -2,6 +2,7 @@
 // See LICENSE.txt for license information.
 import {Platform} from 'react-native';
 import {Navigation} from 'react-native-navigation';
+import EphemeralStore from 'app/store/ephemeral_store';
 
 import merge from 'deepmerge';
 
@@ -73,10 +74,10 @@ export function showModal(name, title, passProps = {}, options = {}) {
     });
 }
 
-export async function dismissModal(options = {}, componentId) {
-    console.log('dismissModal', componentId, options);
+export async function dismissModal(options = {}) {
+    const componentId = EphemeralStore.getNavigationTopComponentId();
     try {
-        await Navigation.dismissAllModals();
+        await Navigation.dismissModal(componentId);
     } catch (error) {
         console.error('dismissModal', error)
         // RNN returns a promise rejection if there is no modal to

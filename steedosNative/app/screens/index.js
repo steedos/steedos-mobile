@@ -1,5 +1,6 @@
 import {Navigation} from 'react-native-navigation';
 import React from 'react';
+// import { WebView } from 'react-native-webview';
 import {IntlProvider} from 'react-intl';
 export function registerScreens(store, Provider) {
     // TODO consolidate this with app/utils/wrap_context_provider
@@ -10,6 +11,6 @@ export function registerScreens(store, Provider) {
             </IntlProvider>
         </Provider>
     );
-    console.log("registerScreens run ....", store, require('./steedos_settings').default)
     Navigation.registerComponent('SteedosSettings', () => wrapper(require('./steedos_settings').default), () => require('./steedos_settings').default);
+    Navigation.registerComponent('SteedosAppView', () => wrapper(require('./steedos_app_view').default), () => require('./steedos_app_view').default);
 }
