@@ -43,6 +43,21 @@ const App: () => React$Node = () => {
     return ;
   }
 
+  showLogin = ()=>{
+    // Alert.alert('Button with adjusted color pressed')
+    console.log('showLogin...');
+    const modalOptions = {
+        topBar: {
+            leftButtons: [{
+                id: 'close-settings',
+                text: "close",
+            }],
+        },
+    };
+    showModal("SteedosLogin", '登录', {}, modalOptions);
+    return ;
+  }
+
   return (
     <>
       <StatusBar barStyle="dark-content" />
@@ -79,6 +94,10 @@ const App: () => React$Node = () => {
             <Button
               title="显示Apps"
               onPress={showApps}
+            />
+            <Button
+              title="Steedos 登录"
+              onPress={showLogin}
             />
             <View style={styles.sectionContainer}>
               <Text style={styles.sectionTitle}>Learn More</Text>

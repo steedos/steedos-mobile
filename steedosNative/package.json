@@ -13,6 +13,8 @@
     "react": "16.9.0",
     "react-intl": "^3.11.0",
     "react-native": "0.61.5",
+    "react-native-button": "^2.4.0",
+    "react-native-keyboard-aware-scroll-view": "^0.9.1",
     "react-native-navigation": "^4.5.3",
     "react-native-webview": "^8.0.4",
     "react-redux": "^7.1.3",
