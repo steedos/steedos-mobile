@@ -25,7 +25,7 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import { showModal } from './app/actions/navigation'
-
+import CookieManager from '@react-native-community/cookies';
 const App: () => React$Node = () => {
 
   showApps = ()=>{
@@ -43,6 +43,20 @@ const App: () => React$Node = () => {
     return ;
   }
 
+  showWebLogin = ()=>{
+    console.log('showWebLogin...');
+    const modalOptions = {
+        topBar: {
+            leftButtons: [{
+                id: 'close-web-login',
+                text: "close",
+            }],
+        },
+    };
+    showModal("SteedosWebViewLogin", 'web登录', {}, modalOptions);
+    return ;
+  }
+
   showLogin = ()=>{
     // Alert.alert('Button with adjusted color pressed')
     console.log('showLogin...');
@@ -57,6 +71,11 @@ const App: () => React$Node = () => {
     showModal("SteedosLogin", '登录', {}, modalOptions);
     return ;
   }
+
+  CookieManager.get('http://192.168.3.2', true)
+  .then((res, err) => {
+      console.log('CookieManager.get 222222=>', res, err);
+  });
 
   return (
     <>
@@ -98,6 +117,10 @@ const App: () => React$Node = () => {
             <Button
               title="Steedos 登录"
               onPress={showLogin}
+            />
+            <Button
+              title="Steedos Web 登录"
+              onPress={showWebLogin}
             />
             <View style={styles.sectionContainer}>
               <Text style={styles.sectionTitle}>Learn More</Text>

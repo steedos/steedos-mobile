@@ -15,6 +15,7 @@ import {
     View,
 } from 'react-native';
 import {preventDoubleTap} from 'app/utils/tap';
+import {t} from 'app/utils/i18n';
 import Button from 'react-native-button';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {GlobalStyles} from 'app/styles';
@@ -46,9 +47,12 @@ export default class Login extends PureComponent {
     };
 
     preSignIn = preventDoubleTap(() => {
+        console.log('preSignIn');
         this.setState({error: null, isLoading: true});
         Keyboard.dismiss();
+        console.log('preSignIn 222');
         InteractionManager.runAfterInteractions(async () => {
+            console.log('preSignIn 333');
             if (!this.props.loginId) {
                 t('login.noEmail');
                 t('login.noEmailLdapUsername');
@@ -112,6 +116,7 @@ export default class Login extends PureComponent {
 
     signIn = () => {
         const {actions, loginId, loginRequest, password} = this.props;
+        console.log('signIn', loginId, password);
         if (loginRequest.status !== RequestStatus.STARTED) {
             actions.login(loginId.toLowerCase(), password).then(this.checkLoginResponse);
         }
@@ -124,9 +129,7 @@ export default class Login extends PureComponent {
     };
 
     createLoginPlaceholder() {
-
-        return '';
-        
+        return '电子邮件 或 用户名';
     }
 
     getLoginErrorMessage = () => {
@@ -222,7 +225,7 @@ export default class Login extends PureComponent {
                 <Button
                     onPress={this.preSignIn}
                     containerStyle={[GlobalStyles.signupButton, additionalStyle]}
-                >
+                >登录
                     {/* <FormattedText
                         id='login.signIn'
                         defaultMessage='Sign in'
@@ -296,6 +299,7 @@ export default class Login extends PureComponent {
                             returnKeyType='go'
                             onSubmitEditing={this.preSignIn}
                             disableFullscreenUI={true}
+                            placeholder='密码'
                         />
                         {proceed}
                         {forgotPassword}

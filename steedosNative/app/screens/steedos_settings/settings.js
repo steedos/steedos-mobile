@@ -8,9 +8,33 @@ import {
 import {intlShape, injectIntl} from 'react-intl';
 import {Navigation} from 'react-native-navigation';
 import { dismissModal, showModal } from 'app/actions/navigation'
+import AsyncStorage from '@react-native-community/async-storage';
+import _ from 'underscore'
 class Settings extends PureComponent {
-    componentDidMount() {
+
+    showWebLogin = ()=>{
+        console.log('showWebLogin...');
+        const modalOptions = {
+            topBar: {
+                leftButtons: [{
+                    id: 'close-web-login',
+                    text: "close",
+                }],
+            },
+        };
+        showModal("SteedosWebViewLogin", 'web登录', {}, modalOptions);
+        return ;
+      }
+
+    async componentDidMount() {
         this.navigationEventListener = Navigation.events().bindComponent(this);
+        const steedosCookies = await AsyncStorage.getItem('STEEDOS_COOKIES');
+        const steedosCookiesMap = JSON.parse(steedosCookies);
+        console.log('steedosCookies', steedosCookies);
+        console.log(11111111, _.isEmpty(steedosCookiesMap))
+        if(_.isEmpty(steedosCookiesMap)){
+            showWebLogin();
+        }
     }
 
     navigationButtonPressed({buttonId}) {
