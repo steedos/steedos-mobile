@@ -38,3 +38,6 @@ cp ./mattermost-mobile/fastlane/.env ../mattermost-mobile/fastlane/.env
 ```bash
 make build-ios
 ```
+
+## 注意
+ios 下如果 yarn add 的node_module需要 pod install 。请在yarn add 后， 进入pod install ，再次之前不要启动项目，否则会出现一些奇怪的问题
