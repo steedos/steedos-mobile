@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux'
-import { RequestStatusType, GenericActionType } from '../../types'
 import { initialRequestState, handleRequest } from './helpers'
 import { BOOTSTRAP_STATE_CHANGE_ACTION } from '../../actions/views/bootstrap';
 import { BootstrapTypes } from '../../action_types'

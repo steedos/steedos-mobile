@@ -2,8 +2,10 @@ import { getUserId, getAuthToken } from '../utils';
 import { fetch } from "whatwg-fetch";
 
 export async function request(url, options = { method: "GET", compress: false }) {
-    let authToken = getAuthToken();
-    let userId = getUserId();
+    let authToken = await getAuthToken();
+    let userId = await getUserId();
+    console.log('authToken', authToken);
+    console.log('userId', userId);
     let authHeaders = {
         'X-Auth-Token': authToken,
         'X-User-Id': userId

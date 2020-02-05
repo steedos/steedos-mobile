@@ -3,7 +3,6 @@
 // @flow
 
 import { RequestStatusOption } from '../../constants'
-import { RequestStatusType, GenericActionType } from '../../types';
 
 export function initialRequestState() {
     return {

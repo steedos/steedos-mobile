@@ -38,7 +38,7 @@ class WebLoginView extends PureComponent {
 
         return (
             <WebView
-        source={{ uri: 'http://192.168.3.2:5000' }}
+        source={{ uri: 'http://192.168.3.2:5000/accounts/a/login' }}
         onLoadEnd = {loadingEnded}
         sharedCookiesEnabled={true}
       />

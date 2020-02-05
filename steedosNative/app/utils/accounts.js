@@ -1,22 +1,22 @@
 import { getCookie } from '../utils';
 
-export const getUserId = ()=>{
+export const getUserId = async ()=>{
     if(window.Meteor){
         return window.Meteor.userId()
     }
-    return getCookie("X-User-Id");
+    return await getCookie("X-User-Id");
 }
 
-export const getAuthToken = ()=>{
+export const getAuthToken = async ()=>{
     if(window.Meteor){
         return window.Accounts._storedLoginToken();
     }
-    return getCookie("X-Auth-Token");
+    return await getCookie("X-Auth-Token");
 }
 
-export const getSpaceId = ()=>{
+export const getSpaceId = async ()=>{
     if(window.Meteor){
         return window.Steedos.spaceId();
     }
-    return getCookie("X-Space-Id");
+    return await getCookie("X-Space-Id");
 }

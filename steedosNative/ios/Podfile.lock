@@ -225,6 +225,8 @@ PODS:
     - React
   - RNCAsyncStorage (1.7.1):
     - React
+  - RNSVG (11.0.1):
+    - React
   - Yoga (1.14.0)
 
 DEPENDENCIES:
@@ -259,6 +261,7 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - ReactNativeNavigation (from `../node_modules/react-native-navigation`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-community/async-storage`)"
+  - RNSVG (from `../node_modules/react-native-svg`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -322,6 +325,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-navigation"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-community/async-storage"
+  RNSVG:
+    :path: "../node_modules/react-native-svg"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -355,6 +360,7 @@ SPEC CHECKSUMS:
   ReactCommon: 198c7c8d3591f975e5431bec1b0b3b581aa1c5dd
   ReactNativeNavigation: f95575d49003afce6ba810098e4f19021f75b7b2
   RNCAsyncStorage: 44395cb9c7c1523104c2b499eb426ef7aff82bca
+  RNSVG: 67f1f12dae2cef6ed59a42cae74a6b8f5a9e7b46
   Yoga: f2a7cd4280bfe2cca5a7aed98ba0eb3d1310f18b
 
 PODFILE CHECKSUM: 23aae5756765746aa306357a58efa60e189540ca

@@ -26,9 +26,12 @@ class AppView extends PureComponent {
     }
 
     render() {
+        const { app } = this.props
+        let uri = `http://192.168.3.2:5000/app/${app._id}`
+        console.log('app view uri', uri);
         return (
             <WebView
-        source={{ uri: 'https://www.steedos.com' }}
+        source={{ uri }}
       />
         );
     }

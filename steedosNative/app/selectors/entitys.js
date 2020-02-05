@@ -5,3 +5,7 @@ export function entityStateSelector(state, entityName){
 export function getObject(state, objectName){
     return state.entities ? state.entities.objects[objectName] : undefined
 }
+
+export function getApps(state){
+    return state.entities?.apps
+}

@@ -2,14 +2,23 @@
 // See LICENSE.txt for license information.
 import {connect} from 'react-redux';
 import Settings from './settings';
+import { getApps } from '../../selectors'
+
+import { loadBootstrapEntitiesData } from '../../actions'
+
 function mapStateToProps(state) {
     console.log('mapStateToProps', state);
-    return state || {};
+    const apps = getApps(state);
+    return Object.assign({}, {apps});
 }
 
 function mapDispatchToProps(dispatch) {
-    console.log('mapDispatchToProps');
-    return {};
+    return ({
+        loadBootstrap: (options) => {
+            console.log('mapDispatchToProps loadBootstrap...');
+            dispatch(loadBootstrapEntitiesData(options))
+        }
+    });
 }
 
-export default connect(mapStateToProps)(Settings);
+export default connect(mapStateToProps, mapDispatchToProps)(Settings);

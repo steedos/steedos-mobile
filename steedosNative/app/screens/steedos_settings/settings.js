@@ -3,13 +3,19 @@
 
 import React, {PureComponent} from 'react';
 import {
-    View,Text,FlatList,TouchableOpacity
+    View,Text,FlatList,TouchableOpacity,StyleSheet,Dimensions
 } from 'react-native';
 import {intlShape, injectIntl} from 'react-intl';
 import {Navigation} from 'react-native-navigation';
 import { dismissModal, showModal } from 'app/actions/navigation'
 import AsyncStorage from '@react-native-community/async-storage';
 import _ from 'underscore'
+import Svg, { SvgUri, SvgCssUri, Use,Image } from 'react-native-svg';
+
+const {width, height} = Dimensions.get('window')
+const cols = 4;
+const cellWH = (width)/cols;
+
 class Settings extends PureComponent {
 
     showWebLogin = ()=>{
@@ -34,6 +40,9 @@ class Settings extends PureComponent {
         console.log(11111111, _.isEmpty(steedosCookiesMap))
         if(_.isEmpty(steedosCookiesMap)){
             showWebLogin();
+        }else{
+            const { loadBootstrap, isBootstrapLoaded, isRequestStarted } = this.props;
+            loadBootstrap({spaceId: "55090bbe527eca33d8000fe0"})
         }
     }
 
@@ -44,8 +53,8 @@ class Settings extends PureComponent {
         }
     }
 
-    _onPress(){
-        console.log('open webview...');
+    _onPress(app){
+        console.log('open webview...', app);
         const modalOptions = {
             topBar: {
                 leftButtons: [{
@@ -54,18 +63,44 @@ class Settings extends PureComponent {
                 }],
             },
         };
-        showModal("SteedosAppView", '审批王', {}, modalOptions);
+        showModal("SteedosAppView", app.name, {app}, modalOptions);
     }
 
     render() {
+
+        //TODO： 根据creator中Apps的显示规则封装getApps函数。
+        const {apps} = this.props
+        console.log('apps', apps);
+        let data = [];
+        sortedApps = _.sortBy(_.values(apps), 'sort')
+        _.each(sortedApps, (app)=>{      
+            if(app.is_creator != false && app._id != "admin"){
+                data.push({...app, key: app.name})
+            }
+        })
+
         return (
-            <View >
+            <View style={styles.container}>
                 <FlatList
-                    data={[{key: '审批王'}, {key: '合同管理'}]}
-                    renderItem={({item}) => <TouchableOpacity onPress={this._onPress}>
-                    <View style={{width: 50,height: 50}}>
-                      <Text>
-                        {item.key}
+                    data={data}
+                    numColumns ={cols}
+                    contentContainerStyle={styles.list_container}
+                    renderItem={({item}) => <TouchableOpacity onPress={()=> this._onPress(item)} activeOpacity={0.5}>
+                    <View style={styles.item}>
+                        <Svg width="130"
+  height="130"
+  fill="blue"
+  stroke="red"
+  color="green" >
+                            <Image href={{uri: 'http://192.168.3.2:5000/assets/icons/standard-sprite/svg/symbols.svg#approval'}} />
+                        </Svg>
+                        
+                          {/* <SvgCssUri
+    style={{width: cellWH,height:cellWH, borderRadius: 5}}
+    uri="http://thenewcode.com/assets/svg/accessibility.svg"
+  /> */}
+                      <Text style={{marginTop: 5, textAlign: 'center'}} numberOfLines={1}>
+                        {item.key}1122
                       </Text>
                     </View>
                   </TouchableOpacity>}
@@ -75,5 +110,28 @@ class Settings extends PureComponent {
         );
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: "#ffffff",
+        // paddingVertical: 15,
+    },
+    list_container: {
+        // 主轴方向
+        // flexDirection:'row',
+        justifyContent: 'space-between',
+        // 一行显示不下,换一行
+        // flexWrap:'wrap',
+        // 侧轴方向
+        // alignItems:'center', // 必须设置,否则换行不起作用
+        // paddingHorizontal: 20,
+    },
+    item: {
+        width:cellWH,
+        marginTop: 1,
+        alignItems: 'center',
+    }
+  })
 
 export default injectIntl(Settings);
