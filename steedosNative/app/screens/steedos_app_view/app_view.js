@@ -19,7 +19,7 @@ class WebLoadingView extends PureComponent {
             <View style={{flex:1,justifyContent:'center',
         alignItems:'center'}}>
                 <Text style={styles.loadingText}>
-                    页面正在加载...
+                    正在加载...
                 </Text>
             </View>
         )
