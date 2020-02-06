@@ -3,12 +3,10 @@
 import {connect} from 'react-redux';
 import AppView from './app_view';
 function mapStateToProps(state) {
-    console.log('mapStateToProps', state);
     return state || {};
 }
 
 function mapDispatchToProps(dispatch) {
-    console.log('mapDispatchToProps');
     return {};
 }
 

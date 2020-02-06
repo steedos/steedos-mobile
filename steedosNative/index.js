@@ -10,7 +10,7 @@ import store from 'app/store';
 import EphemeralStore from 'app/store/ephemeral_store';
 Navigation.registerComponent(`steedosNative`, () => App);
 Navigation.events().registerAppLaunchedListener(() => {
-    console.log('registerAppLaunchedListener store', store);
+    // console.log('registerAppLaunchedListener store', store);
     registerScreens(store, Provider);
     Navigation.setRoot({
         root: {

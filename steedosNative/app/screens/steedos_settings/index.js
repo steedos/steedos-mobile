@@ -2,21 +2,22 @@
 // See LICENSE.txt for license information.
 import {connect} from 'react-redux';
 import Settings from './settings';
-import { getApps } from '../../selectors'
+import { viewStateSelector } from '../../selectors'
+import { makeNewID } from '../../utils'
+import { loadApps } from '../../actions'
 
-import { loadBootstrapEntitiesData } from '../../actions'
-
-function mapStateToProps(state) {
-    console.log('mapStateToProps', state);
-    const apps = getApps(state);
-    return Object.assign({}, {apps});
-}
+function mapStateToProps() {
+    return (state, ownProps) => {
+        ownProps.id = ownProps.id || makeNewID(ownProps)
+        let entityState = viewStateSelector(state, ownProps.id) || {}
+        return Object.assign({}, entityState, {...entityState, ...ownProps, accounts: state.accounts});
+    };
+  }
 
 function mapDispatchToProps(dispatch) {
     return ({
-        loadBootstrap: (options) => {
-            console.log('mapDispatchToProps loadBootstrap...');
-            dispatch(loadBootstrapEntitiesData(options))
+        loadApps: (options) => {
+            dispatch(loadApps(options))
         }
     });
 }

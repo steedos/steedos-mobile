@@ -8,14 +8,35 @@ import {
 import { WebView } from 'react-native-webview';
 import {intlShape, injectIntl} from 'react-intl';
 import {Navigation} from 'react-native-navigation';
-import { dismissModal } from 'app/actions/navigation'
+import { dismissModal, showModal, dismissModalAll  } from 'app/actions/navigation'
 import CookieManager from '@react-native-community/cookies';
 import AsyncStorage from '@react-native-community/async-storage';
 class WebLoginView extends PureComponent {
-    componentDidMount() {
-        this.navigationEventListener = Navigation.events().bindComponent(this);
+
+    constructor(props) {
+    　　super(props)
+    　　this.state = {
+    　　　　loadingEndedCount: 0,
+    　　}
     }
 
+    async componentDidMount() {
+        this.navigationEventListener = Navigation.events().bindComponent(this);
+    }
+    showApps = ()=>{
+        // Alert.alert('Button with adjusted color pressed')
+        console.log('showApps...');
+        const modalOptions = {
+            topBar: {
+                leftButtons: [{
+                    id: 'close-settings',
+                    text: "关闭",
+                }],
+            },
+        };
+        showModal("SteedosSettings", '工作台', {}, modalOptions);
+        return ;
+    }
     navigationButtonPressed({buttonId}) {
         console.log('navigationButtonPressed', buttonId);
         if (buttonId === 'close-web-login') {
@@ -28,11 +49,21 @@ class WebLoginView extends PureComponent {
     }
 
     render() {
-        
+        let { saveAccounts } = this.props
         loadingEnded = (a,b,c,d,e,f)=>{
+
+            let {loadingEndedCount} =  this.state
             CookieManager.get('http://192.168.3.2', true)
             .then(async (res, err) => {
-                AsyncStorage.setItem("STEEDOS_COOKIES", JSON.stringify(res));
+                if(loadingEndedCount > 0 ){
+                    AsyncStorage.setItem("STEEDOS_COOKIES", JSON.stringify(res));
+                    saveAccounts({cookies: res});
+                    dismissModal();
+                }else{
+                    saveAccounts({cookies: {}})
+                }
+                loadingEndedCount++;
+                this.setState({loadingEndedCount})
             });
         }
 

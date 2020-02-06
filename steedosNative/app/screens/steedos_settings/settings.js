@@ -10,8 +10,7 @@ import {Navigation} from 'react-native-navigation';
 import { dismissModal, showModal } from 'app/actions/navigation'
 import AsyncStorage from '@react-native-community/async-storage';
 import _ from 'underscore'
-import Svg, { SvgUri, SvgCssUri, Use,Image } from 'react-native-svg';
-
+import Icon from 'react-native-vector-icons/Ionicons';
 const {width, height} = Dimensions.get('window')
 const cols = 4;
 const cellWH = (width)/cols;
@@ -19,7 +18,6 @@ const cellWH = (width)/cols;
 class Settings extends PureComponent {
 
     showWebLogin = ()=>{
-        console.log('showWebLogin...');
         const modalOptions = {
             topBar: {
                 leftButtons: [{
@@ -32,34 +30,44 @@ class Settings extends PureComponent {
         return ;
       }
 
-    async componentDidMount() {
-        this.navigationEventListener = Navigation.events().bindComponent(this);
-        const steedosCookies = await AsyncStorage.getItem('STEEDOS_COOKIES');
-        const steedosCookiesMap = JSON.parse(steedosCookies);
-        console.log('steedosCookies', steedosCookies);
-        console.log(11111111, _.isEmpty(steedosCookiesMap))
-        if(_.isEmpty(steedosCookiesMap)){
-            showWebLogin();
+
+    initData = (showLogin)=>{
+        const { accounts } = this.props;
+        if(_.isEmpty(accounts?.cookies) && showLogin){
+            showWebLogin(); 
         }else{
-            const { loadBootstrap, isBootstrapLoaded, isRequestStarted } = this.props;
-            loadBootstrap({spaceId: "55090bbe527eca33d8000fe0"})
+            const { loadApps, isLoaded } = this.props;
+            if(!isLoaded){
+                loadApps(Object.assign({spaceId: "55090bbe527eca33d8000fe0"}, this.props))
+            }
         }
     }
 
+    async componentDidMount() {
+        this.navigationEventListener = Navigation.events().bindComponent(this);
+        this.initData(true);
+    }
+
+    async componentDidUpdate(){
+        this.initData();
+    }
+
     navigationButtonPressed({buttonId}) {
-        console.log('navigationButtonPressed', buttonId);
         if (buttonId === 'close-settings') {
             dismissModal();
         }
     }
 
     _onPress(app){
-        console.log('open webview...', app);
+        if(app.url === '/im'){
+            return dismissModal();
+        }
+
         const modalOptions = {
             topBar: {
                 leftButtons: [{
                     id: 'close-app-view',
-                    text: "close",
+                    text: "关闭",
                 }],
             },
         };
@@ -67,14 +75,12 @@ class Settings extends PureComponent {
     }
 
     render() {
-
         //TODO： 根据creator中Apps的显示规则封装getApps函数。
-        const {apps} = this.props
-        console.log('apps', apps);
+        const {rows:apps} = this.props
         let data = [];
         sortedApps = _.sortBy(_.values(apps), 'sort')
         _.each(sortedApps, (app)=>{      
-            if(app.is_creator != false && app._id != "admin"){
+            if(app.is_creator != false && app._id != "admin" && app.mobile){
                 data.push({...app, key: app.name})
             }
         })
@@ -87,20 +93,9 @@ class Settings extends PureComponent {
                     contentContainerStyle={styles.list_container}
                     renderItem={({item}) => <TouchableOpacity onPress={()=> this._onPress(item)} activeOpacity={0.5}>
                     <View style={styles.item}>
-                        <Svg width="130"
-  height="130"
-  fill="blue"
-  stroke="red"
-  color="green" >
-                            <Image href={{uri: 'http://192.168.3.2:5000/assets/icons/standard-sprite/svg/symbols.svg#approval'}} />
-                        </Svg>
-                        
-                          {/* <SvgCssUri
-    style={{width: cellWH,height:cellWH, borderRadius: 5}}
-    uri="http://thenewcode.com/assets/svg/accessibility.svg"
-  /> */}
+                    <Icon name={item.icon.replace('ion-', '').replace('-outline', '')} style={styles.icon}/>
                       <Text style={{marginTop: 5, textAlign: 'center'}} numberOfLines={1}>
-                        {item.key}1122
+                        {item.key} 
                       </Text>
                     </View>
                   </TouchableOpacity>}
@@ -115,7 +110,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "#ffffff",
-        // paddingVertical: 15,
+        paddingVertical: 15,
     },
     list_container: {
         // 主轴方向
@@ -129,8 +124,13 @@ const styles = StyleSheet.create({
     },
     item: {
         width:cellWH,
+        height: cellWH,
         marginTop: 1,
         alignItems: 'center',
+    },
+    icon: {
+        fontSize: 36,
+        color: '#00ACC1'
     }
   })
 

@@ -26,16 +26,16 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 import { showModal } from './app/actions/navigation'
 import CookieManager from '@react-native-community/cookies';
+import AsyncStorage from '@react-native-community/async-storage';
 const App: () => React$Node = () => {
 
   showApps = ()=>{
     // Alert.alert('Button with adjusted color pressed')
-    console.log('showApps...');
     const modalOptions = {
         topBar: {
             leftButtons: [{
                 id: 'close-settings',
-                text: "close",
+                text: "关闭",
             }],
         },
     };
@@ -44,12 +44,11 @@ const App: () => React$Node = () => {
   }
 
   showWebLogin = ()=>{
-    console.log('showWebLogin...');
     const modalOptions = {
         topBar: {
             leftButtons: [{
                 id: 'close-web-login',
-                text: "close",
+                text: "关闭",
             }],
         },
     };
@@ -59,12 +58,11 @@ const App: () => React$Node = () => {
 
   showLogin = ()=>{
     // Alert.alert('Button with adjusted color pressed')
-    console.log('showLogin...');
     const modalOptions = {
         topBar: {
             leftButtons: [{
                 id: 'close-settings',
-                text: "close",
+                text: "关闭",
             }],
         },
     };
@@ -72,10 +70,12 @@ const App: () => React$Node = () => {
     return ;
   }
 
-  CookieManager.get('http://192.168.3.2', true)
-  .then((res, err) => {
-      console.log('CookieManager.get 222222=>', res, err);
-  });
+  removeSteedosToken = async ()=>{
+    await AsyncStorage.removeItem("STEEDOS_COOKIES");
+    CookieManager.clearAll().then((res)=>{
+      console.log('CookieManager.clearAll res====>', res);
+    })
+  }
 
   return (
     <>
@@ -121,6 +121,10 @@ const App: () => React$Node = () => {
             <Button
               title="Steedos Web 登录"
               onPress={showWebLogin}
+            />
+            <Button
+              title="remove Steedos Token"
+              onPress={removeSteedosToken}
             />
             <View style={styles.sectionContainer}>
               <Text style={styles.sectionTitle}>Learn More</Text>

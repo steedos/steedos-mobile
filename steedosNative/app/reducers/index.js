@@ -2,11 +2,14 @@ import { combineReducers } from 'redux'
 import settingsReducer from './settings'
 import entitiesReducer from './entities'
 import requests from './requests';
-
+import viewsReducer from './views';
+import accounts from './accounts'
 const combinedReducer = combineReducers({
     entities: entitiesReducer,
     settings: settingsReducer,
-    requests
+    views: viewsReducer,
+    requests,
+    accounts
 })
 
 function crossSliceReducer(state, action) {
