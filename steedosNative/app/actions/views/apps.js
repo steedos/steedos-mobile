@@ -10,6 +10,6 @@ export function createAppsAction(partialStateName, partialStateValue) {
 export function loadApps(options) {
     return function (dispatch, getState) {
         const service = dataServicesSelector(getState())
-        return executeApiRequest(dispatch, APPS_STATE_CHANGE_ACTION, service, Object.assign({method: 'GET', url: '/api/v4/apps'}, options))
+        return executeApiRequest(dispatch, APPS_STATE_CHANGE_ACTION, service, Object.assign({method: 'GET', url: '/api/v4/apps/all/safe_apps'}, options))
     };
 }
