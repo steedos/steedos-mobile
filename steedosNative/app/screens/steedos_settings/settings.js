@@ -34,12 +34,11 @@ class Settings extends PureComponent {
     initData = (showLogin)=>{
         const { accounts } = this.props;
         if(_.isEmpty(accounts?.cookies) && showLogin){
-            console.log('showWebLogin..........');
             showWebLogin(); 
         }else{
             const { loadApps, isLoaded } = this.props;
             if(!isLoaded){
-                loadApps(Object.assign({spaceId: "55090bbe527eca33d8000fe0"}, this.props))
+                loadApps(Object.assign({}, this.props))
             }
         }
     }

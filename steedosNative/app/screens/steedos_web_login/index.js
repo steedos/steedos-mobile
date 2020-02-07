@@ -3,9 +3,12 @@
 import {connect} from 'react-redux';
 import WebLoginView from './login';
 import { saveAccounts } from '../../actions'
-function mapStateToProps(state) {
-    console.log('mapStateToProps', state);
-    return state || {};
+import { dataServicesSelector } from '../../selectors'
+function mapStateToProps() {
+    return (state, ownProps) => {
+        let service = dataServicesSelector(state)
+        return {service};
+    };
 }
 
 function mapDispatchToProps(dispatch) {

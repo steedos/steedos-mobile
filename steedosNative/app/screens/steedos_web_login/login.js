@@ -6,9 +6,9 @@ import {
     View,Text
 } from 'react-native';
 import { WebView } from 'react-native-webview';
-import {intlShape, injectIntl} from 'react-intl';
-import {Navigation} from 'react-native-navigation';
-import { dismissModal, showModal, dismissModalAll  } from 'app/actions/navigation'
+import { injectIntl } from 'react-intl';
+import { Navigation } from 'react-native-navigation';
+import { dismissModal } from 'app/actions/navigation'
 import CookieManager from '@react-native-community/cookies';
 class WebLoginView extends PureComponent {
 
@@ -22,37 +22,18 @@ class WebLoginView extends PureComponent {
     async componentDidMount() {
         this.navigationEventListener = Navigation.events().bindComponent(this);
     }
-    showApps = ()=>{
-        // Alert.alert('Button with adjusted color pressed')
-        console.log('showApps...');
-        const modalOptions = {
-            topBar: {
-                leftButtons: [{
-                    id: 'close-settings',
-                    text: "关闭",
-                }],
-            },
-        };
-        showModal("SteedosSettings", '工作台', {}, modalOptions);
-        return ;
-    }
+    
     navigationButtonPressed({buttonId}) {
-        console.log('navigationButtonPressed', buttonId);
         if (buttonId === 'close-web-login') {
             dismissModal();
         }
     }
 
-    _onPress(){
-        console.log('open webview...');
-    }
-
     render() {
-        let { saveAccounts } = this.props
-        loadingEnded = (a,b,c,d,e,f)=>{
-
+        let { service, saveAccounts } = this.props
+        loadingEnded = ()=>{
             let {loadingEndedCount} =  this.state
-            CookieManager.get('http://192.168.3.2', true)
+            CookieManager.get(service, true)
             .then(async (res, err) => {
                 if(loadingEndedCount > 0 ){
                     console.log('res', JSON.stringify(res));
@@ -68,7 +49,7 @@ class WebLoginView extends PureComponent {
 
         return (
             <WebView
-        source={{ uri: 'http://192.168.3.2:5000/accounts/a/login' }}
+        source={{ uri: `${service}/accounts/a/login` }}
         onLoadEnd = {loadingEnded}
         sharedCookiesEnabled={true}
       />

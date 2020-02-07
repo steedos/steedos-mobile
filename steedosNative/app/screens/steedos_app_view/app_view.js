@@ -44,7 +44,6 @@ class AppView extends PureComponent {
 
     async componentWillMount(){
         this.userId = await getUserId()
-        console.log('this.userId', this.userId);
         this.token = await getAuthToken();
         this.setState({isLoading: true})
     }
@@ -54,25 +53,20 @@ class AppView extends PureComponent {
     }
 
     navigationButtonPressed({buttonId}) {
-        console.log('navigationButtonPressed', buttonId);
         if (buttonId === 'close-app-view') {
             dismissModal();
         }
     }
 
-    _onPress(){
-        console.log('open webview...');
-    }
-
     render() {
         let {isLoading} = this.state
-
+        let { service } = this.props
         if(!isLoading){
             return (<></>)
         }
 
         const { app } = this.props
-        let uri = `http://192.168.3.2:5000/api/setup/sso/${app?._id}?X-User-Id=${this.userId}&X-Auth-Token=${this.token}`
+        let uri = `${service}/api/setup/sso/${app?._id}?X-User-Id=${this.userId}&X-Auth-Token=${this.token}`
         console.log('app view uri', uri);
         return (
             <WebView 

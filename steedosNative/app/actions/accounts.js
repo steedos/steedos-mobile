@@ -12,16 +12,16 @@ export function createAccountsAction(partialStateName, partialStateValue) {
 export function saveAccounts(options) {
     return function (dispatch, getState) {
         dispatch(createAccountsAction('saveAccounts', options))
-        return loadAccountsUserData(options).then(
+        const service = dataServicesSelector(getState())
+        return loadAccountsUserData(service, options).then(
             (sauce) => dispatch(loadAccountsUserSauce(sauce)),
             (error) => dispatch(loadAccountsUserError(error)),
         );
     };
 }
 
-export async function loadAccountsUserData(options) {
-    let dataService = 'http://192.168.3.2:5000'
-    let url = `${dataService}/accounts/user`;
+export async function loadAccountsUserData(service, options) {
+    let url = `${service}/accounts/user`;
     let reqOptions = {
         method: "GET", 
         compress: false,

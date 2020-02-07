@@ -12,7 +12,7 @@ function mapStateToProps() {
         let entityState = viewStateSelector(state, ownProps.id) || {}
         return Object.assign({}, entityState, {...entityState, ...ownProps, accounts: state.accounts});
     };
-  }
+}
 
 function mapDispatchToProps(dispatch) {
     return ({

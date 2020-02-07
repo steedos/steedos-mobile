@@ -13,7 +13,6 @@ export function loadBootstrapDataRequest(dispatch, actionType, dataService, opti
 
 export async function loadBootstrapData(dataService, options) {
     let spaceId = options.spaceId || getSpaceId();
-    dataService = 'http://192.168.3.2:5000'
     let url = `${dataService}/api/bootstrap/${spaceId}`;
     return await request(url);
 }
