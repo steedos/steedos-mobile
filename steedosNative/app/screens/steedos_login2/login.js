@@ -10,7 +10,6 @@ import {intlShape, injectIntl} from 'react-intl';
 import {Navigation} from 'react-native-navigation';
 import { dismissModal, showModal, dismissModalAll  } from 'app/actions/navigation'
 import CookieManager from '@react-native-community/cookies';
-import AsyncStorage from '@react-native-community/async-storage';
 class WebLoginView extends PureComponent {
 
     constructor(props) {
@@ -56,7 +55,7 @@ class WebLoginView extends PureComponent {
             CookieManager.get('http://192.168.3.2', true)
             .then(async (res, err) => {
                 if(loadingEndedCount > 0 ){
-                    AsyncStorage.setItem("STEEDOS_COOKIES", JSON.stringify(res));
+                    console.log('res', JSON.stringify(res));
                     saveAccounts({cookies: res});
                     dismissModal();
                 }else{

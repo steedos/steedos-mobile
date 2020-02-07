@@ -12,6 +12,11 @@ export async function request(url, options = { method: "GET", compress: false })
         'X-User-Id': userId
     };
     options.headers = { ...options.headers, ...authHeaders};
+
+
+    console.log('request url', url);
+    console.log('request options', JSON.stringify(options));
+
     const response = await fetch(url, options);
     if (response.ok){
         return await response.json()

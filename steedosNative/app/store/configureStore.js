@@ -29,7 +29,8 @@ const store = createStore(
         composeEnhancers(applyMiddleware(thunkMiddleware)),
     );
 
-AsyncStorage.getItem('STEEDOS_COOKIES').then((res) => {
+AsyncStorage.getItem('STEEDOS_ACCOUNTS_COOKIES').then((res) => {
+    console.log('res', res);
     store.dispatch(saveAccounts({cookies: JSON.parse(res || '{}')}))
 })
 

@@ -71,7 +71,7 @@ const App: () => React$Node = () => {
   }
 
   removeSteedosToken = async ()=>{
-    await AsyncStorage.removeItem("STEEDOS_COOKIES");
+    await AsyncStorage.removeItem("STEEDOS_ACCOUNTS_COOKIES");
     CookieManager.clearAll().then((res)=>{
       console.log('CookieManager.clearAll res====>', res);
     })
