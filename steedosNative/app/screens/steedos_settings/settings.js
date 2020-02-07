@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import {intlShape, injectIntl} from 'react-intl';
 import {Navigation} from 'react-native-navigation';
-import { dismissModal, showModal } from 'app/actions/navigation'
+import { dismissModal, showModal, goToScreen } from 'app/actions/navigation'
 import AsyncStorage from '@react-native-community/async-storage';
 import _ from 'underscore'
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -34,6 +34,7 @@ class Settings extends PureComponent {
     initData = (showLogin)=>{
         const { accounts } = this.props;
         if(_.isEmpty(accounts?.cookies) && showLogin){
+            console.log('showWebLogin..........');
             showWebLogin(); 
         }else{
             const { loadApps, isLoaded } = this.props;
@@ -71,7 +72,8 @@ class Settings extends PureComponent {
                 }],
             },
         };
-        showModal("SteedosAppView", app.name, {app}, modalOptions);
+        // showModal("SteedosAppView", app.name, {app}, modalOptions);
+        goToScreen("SteedosAppView", app.name, {app})
     }
 
     render() {

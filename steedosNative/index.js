@@ -12,12 +12,48 @@ Navigation.registerComponent(`steedosNative`, () => App);
 Navigation.events().registerAppLaunchedListener(() => {
     // console.log('registerAppLaunchedListener store', store);
     registerScreens(store, Provider);
+    // Navigation.setRoot({
+    //     root: {
+    //         component: {
+    //         name: 'steedosNative'
+    //         }
+    //     }
+    // });
+    let passProps = {}
+    let theme = {}
     Navigation.setRoot({
         root: {
-            component: {
-            name: 'steedosNative'
-            }
-        }
+            stack: {
+                children: [{
+                    component: {
+                        name: 'steedosNative',
+                        passProps,
+                        options: {
+                            layout: {
+                                backgroundColor: 'transparent',
+                            },
+                            statusBar: {
+                                visible: true,
+                            },
+                            topBar: {
+                                visible: false,
+                                height: 0,
+                                backButton: {
+                                    color: theme.sidebarHeaderTextColor,
+                                    title: '',
+                                },
+                                background: {
+                                    color: theme.sidebarHeaderBg,
+                                },
+                                title: {
+                                    color: theme.sidebarHeaderTextColor,
+                                },
+                            },
+                        },
+                    },
+                }],
+            },
+        },
     });
 
     Navigation.events().registerComponentDidAppearListener(({componentId}) => {

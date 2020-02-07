@@ -92,3 +92,43 @@ export async function dismissModalAll(options){
         options.callback()
     }
 }
+
+
+export function goToScreen(name, title, passProps = {}, options = {}) {
+    const componentId = EphemeralStore.getNavigationTopComponentId();
+    console.log('componentId', componentId);
+    let theme = {
+        // centerChannelBg: 'red',
+        // sidebarHeaderTextColor: 'red',
+        // sidebarHeaderBg: 'red',
+        // sidebarHeaderTextColor: 'red'
+    }
+    const defaultOptions = {
+        layout: {
+            backgroundColor: theme.centerChannelBg,
+        },
+        topBar: {
+            animate: true,
+            visible: true,
+            backButton: {
+                color: theme.sidebarHeaderTextColor,
+                title: '',
+            },
+            background: {
+                color: theme.sidebarHeaderBg,
+            },
+            title: {
+                color: theme.sidebarHeaderTextColor,
+                text: title,
+            },
+        },
+    };
+
+    Navigation.push(componentId, {
+        component: {
+            name,
+            passProps,
+            options: merge(defaultOptions, options),
+        },
+    });
+}
