@@ -59,18 +59,18 @@ class Settings extends PureComponent {
     }
 
     _onPress(app){
-        if(app.url === '/im'){
-            return dismissModal();
-        }
+        // if(app.url === '/im'){
+        //     return dismissModal();
+        // }
 
-        const modalOptions = {
-            topBar: {
-                leftButtons: [{
-                    id: 'close-app-view',
-                    text: "关闭",
-                }],
-            },
-        };
+        // const modalOptions = {
+        //     topBar: {
+        //         leftButtons: [{
+        //             id: 'close-app-view',
+        //             text: "关闭",
+        //         }],
+        //     },
+        // };
         // showModal("SteedosAppView", app.name, {app}, modalOptions);
         goToScreen("SteedosAppView", app.name, {app})
     }

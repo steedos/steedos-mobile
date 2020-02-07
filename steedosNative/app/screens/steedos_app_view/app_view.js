@@ -9,29 +9,8 @@ import { WebView } from 'react-native-webview';
 import {intlShape, injectIntl} from 'react-intl';
 import {Navigation} from 'react-native-navigation';
 import { dismissModal } from 'app/actions/navigation'
-
+import WebLoadingView from '../../components/web_loading'
 import { getUserId,getAuthToken } from '../../utils/accounts'
-
-class WebLoadingView extends PureComponent {
-
-    render() {
-        return (
-            <View style={{flex:1,justifyContent:'center',
-        alignItems:'center'}}>
-                <Text style={styles.loadingText}>
-                    正在加载...
-                </Text>
-            </View>
-        )
-    }
-}
-
-const styles = StyleSheet.create({
-    loadingText: {
-        color: '#8a8a8a',
-        fontSize: 16
-    }
-})
 
 class AppView extends PureComponent {
 

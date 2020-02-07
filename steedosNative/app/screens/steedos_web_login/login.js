@@ -10,6 +10,8 @@ import { injectIntl } from 'react-intl';
 import { Navigation } from 'react-native-navigation';
 import { dismissModal } from 'app/actions/navigation'
 import CookieManager from '@react-native-community/cookies';
+import WebLoadingView from '../../components/web_loading'
+
 class WebLoginView extends PureComponent {
 
     constructor(props) {
@@ -52,6 +54,8 @@ class WebLoginView extends PureComponent {
         source={{ uri: `${service}/accounts/a/login` }}
         onLoadEnd = {loadingEnded}
         sharedCookiesEnabled={true}
+        startInLoadingState = {true}
+        renderLoading = {()=>{return <WebLoadingView/>}}
       />
         );
     }
