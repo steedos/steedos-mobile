@@ -39,8 +39,7 @@ const App: () => React$Node = () => {
             }],
         },
     };
-    // showModal("SteedosSettings", '工作台', {}, modalOptions);
-    goToScreen("SteedosSettings", '工作台')
+    showModal("SteedosSettings", '工作台', {}, modalOptions);
     return ;
   }
 

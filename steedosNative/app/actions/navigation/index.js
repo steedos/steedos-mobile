@@ -123,7 +123,6 @@ export function goToScreen(name, title, passProps = {}, options = {}) {
             },
         },
     };
-
     Navigation.push(componentId, {
         component: {
             name,
