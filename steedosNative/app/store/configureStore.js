@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { saveAccounts } from '../actions'
 const composeEnhancers = composeWithDevTools({ realtime: true});
 
-let steedosService = "http://192.168.3.2:5000";
+let steedosService = "";
 
 const defaultState = {
     settings: {
