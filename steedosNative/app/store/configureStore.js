@@ -6,16 +6,9 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { saveAccounts } from '../actions'
 const composeEnhancers = composeWithDevTools({ realtime: true});
 
-let steedosService = process.env.REACT_APP_API_BASE_URL || "http://192.168.3.2:5000";
-if(window && window.Meteor){
-    steedosService = window.Steedos.absoluteUrl('', true);
-}
-if (steedosService){
-    // 去掉url中的最后一个斜杠
-    steedosService = steedosService.replace(/\/$/, "");
-}
+let steedosService = "http://192.168.3.2:5000";
 
-const initialStore = {
+const defaultState = {
     settings: {
         services: {
             steedos: steedosService
@@ -23,15 +16,21 @@ const initialStore = {
     }
 }
 
-const store = createStore(
+export default function configureAppStore(initialState = {}){
+
+
+    console.log('configureAppStore......');
+
+    const store = createStore(
         rootReducer,
-        Object.assign({}, initialStore),
+        Object.assign({}, defaultState, initialState),
         composeEnhancers(applyMiddleware(thunkMiddleware)),
     );
 
-AsyncStorage.getItem('STEEDOS_ACCOUNTS_COOKIES').then((res) => {
-    console.log('res', res);
-    store.dispatch(saveAccounts({cookies: JSON.parse(res || '{}')}))
-})
+    AsyncStorage.getItem('STEEDOS_ACCOUNTS_COOKIES').then((res) => {
+        console.log('res', res);
+        store.dispatch(saveAccounts({cookies: JSON.parse(res || '{}')}))
+    })
 
-export default store;
+    return store;
+}

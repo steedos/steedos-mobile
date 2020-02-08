@@ -9,8 +9,9 @@ import { WebView } from 'react-native-webview';
 import { injectIntl } from 'react-intl';
 import { Navigation } from 'react-native-navigation';
 import { dismissModal } from 'app/actions/navigation'
-import CookieManager from '@react-native-community/cookies';
+import CookieManager from 'react-native-cookies';
 import WebLoadingView from '../../components/web_loading'
+import _ from 'underscore'
 
 class WebLoginView extends PureComponent {
 
@@ -31,32 +32,35 @@ class WebLoginView extends PureComponent {
         }
     }
 
+    componentWillUnmount(){
+        if(this.setIntervalId){
+            clearInterval(this.setIntervalId);
+        }
+    }
+
     render() {
         let { service, saveAccounts } = this.props
-        loadingEnded = ()=>{
-            let {loadingEndedCount} =  this.state
-            CookieManager.get(service, true)
-            .then(async (res, err) => {
-                if(loadingEndedCount > 0 ){
-                    console.log('res', JSON.stringify(res));
-                    saveAccounts({cookies: res});
-                    dismissModal();
-                }else{
-                    saveAccounts({cookies: {}})
-                }
-                loadingEndedCount++;
-                this.setState({loadingEndedCount})
-            });
+        let loadingEnded = ()=>{
+            this.setIntervalId = setInterval(() => {
+                CookieManager.get(service, true)
+                .then(async (res) => {
+                    if(!_.isEmpty(res)){
+                        saveAccounts({cookies: res});
+                        dismissModal();
+                        clearInterval(this.setIntervalId);
+                    }
+                });
+            }, 300);
         }
 
         return (
             <WebView
-        source={{ uri: `${service}/accounts/a/login` }}
-        onLoadEnd = {loadingEnded}
-        sharedCookiesEnabled={true}
-        startInLoadingState = {true}
-        renderLoading = {()=>{return <WebLoadingView/>}}
-      />
+                source={{ uri: `${service}/accounts/a/login` }}
+                onLoadEnd={loadingEnded}
+                sharedCookiesEnabled={true}
+                startInLoadingState={true}
+                renderLoading={() => { return <WebLoadingView /> }}
+            />
         );
     }
 }

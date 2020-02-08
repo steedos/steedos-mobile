@@ -21,7 +21,7 @@ class AppView extends PureComponent {
     　　}
     }
 
-    async componentWillMount(){
+    async UNSAFE_componentWillMount(){
         this.userId = await getUserId()
         this.token = await getAuthToken();
         this.setState({isLoading: true})

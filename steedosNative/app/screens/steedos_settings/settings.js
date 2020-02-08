@@ -34,7 +34,7 @@ class Settings extends PureComponent {
     initData = (showLogin)=>{
         const { accounts } = this.props;
         if(_.isEmpty(accounts?.cookies) && showLogin){
-            showWebLogin(); 
+            this.showWebLogin(); 
         }else{
             const { loadApps, isLoaded } = this.props;
             if(!isLoaded){
@@ -59,19 +59,7 @@ class Settings extends PureComponent {
     }
 
     _onPress(app){
-        // if(app.url === '/im'){
-        //     return dismissModal();
-        // }
-
-        // const modalOptions = {
-        //     topBar: {
-        //         leftButtons: [{
-        //             id: 'close-app-view',
-        //             text: "关闭",
-        //         }],
-        //     },
-        // };
-        // showModal("SteedosAppView", app.name, {app}, modalOptions);
+        console.log('SteedosAppView......_onPress.');
         goToScreen("SteedosAppView", app.name, {app})
     }
 
