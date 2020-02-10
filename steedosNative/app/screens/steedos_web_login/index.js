@@ -14,7 +14,6 @@ function mapStateToProps() {
 function mapDispatchToProps(dispatch) {
     return ({
         saveAccounts: (options) => {
-            console.log('mapDispatchToProps saveAccounts...');
             dispatch(saveAccounts(options))
         }
     });

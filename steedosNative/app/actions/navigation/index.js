@@ -88,7 +88,6 @@ export async function dismissModal(options = {}) {
 export async function dismissModalAll(options){
     await Navigation.dismissAllModals({});
     if(options.callback){
-        console.log('options.callback', options.callback)
         options.callback()
     }
 }
@@ -96,7 +95,6 @@ export async function dismissModalAll(options){
 
 export function goToScreen(name, title, passProps = {}, options = {}) {
     const componentId = EphemeralStore.getNavigationTopComponentId();
-    console.log('componentId', componentId);
     let theme = {
         // centerChannelBg: 'red',
         // sidebarHeaderTextColor: 'red',

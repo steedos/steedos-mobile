@@ -22,6 +22,5 @@ function loadBootstrapDataSauce(actionType, results, options) {
 }
 
 function loadDataError(actionType, error, options) {
-    console.log('loadDataError',actionType, error, options);
     return createAction(actionType, BootstrapTypes.GET_BOOTSTRAP_FAILURE, {error: error}, options)
 }

@@ -2,7 +2,6 @@ import { ACCOUNTS_STATE_CHANGE_ACTION } from '../actions'
 import AsyncStorage from '@react-native-community/async-storage';
 
 function handleAccountsUser(userData){
-    console.log("handleAccountsUser", userData);
     let spaceId = '';
     if(userData?.spaces && userData.spaces.length > 0){
         spaceId = userData.spaces[0]._id

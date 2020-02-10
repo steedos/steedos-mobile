@@ -46,7 +46,6 @@ class AppView extends PureComponent {
 
         const { app } = this.props
         let uri = `${service}/api/setup/sso/${app?._id}?X-User-Id=${this.userId}&X-Auth-Token=${this.token}`
-        console.log('app view uri', uri);
         return (
             <WebView 
                     source={{ uri }}

@@ -59,7 +59,6 @@ class Settings extends PureComponent {
     }
 
     _onPress(app){
-        console.log('SteedosAppView......_onPress.');
         goToScreen("SteedosAppView", app.name, {app})
     }
 
