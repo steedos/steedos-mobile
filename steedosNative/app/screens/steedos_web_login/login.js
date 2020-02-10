@@ -8,7 +8,7 @@ import {
 import { WebView } from 'react-native-webview';
 import { injectIntl } from 'react-intl';
 import { Navigation } from 'react-native-navigation';
-import { dismissModal } from 'app/actions/navigation'
+import { dismissModal,dismissAllModals } from 'app/actions/navigation'
 import WebLoadingView from '../../components/web_loading'
 import _ from 'underscore'
 
@@ -27,7 +27,7 @@ class WebLoginView extends PureComponent {
     
     navigationButtonPressed({buttonId}) {
         if (buttonId === 'close-web-login') {
-            dismissModal();
+            dismissAllModals();
         }
     }
 

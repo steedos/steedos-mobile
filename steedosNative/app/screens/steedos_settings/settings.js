@@ -11,21 +11,24 @@ import { dismissModal, showModal, goToScreen } from 'app/actions/navigation'
 import AsyncStorage from '@react-native-community/async-storage';
 import _ from 'underscore'
 import Icon from 'react-native-vector-icons/Ionicons';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 const {width, height} = Dimensions.get('window')
 const cols = 4;
 const cellWH = (width)/cols;
 
 class Settings extends PureComponent {
 
-    showWebLogin = ()=>{
+    showWebLogin = async ()=>{
+        let closeButton = await MaterialIcon.getImageSource('close', 20, "#ffffff")
         const modalOptions = {
             topBar: {
                 leftButtons: [{
                     id: 'close-web-login',
-                    text: "close",
+                    icon: closeButton,
                 }],
             },
         };
+        console.log('====.closeButton', closeButton);
         showModal("SteedosWebViewLogin", 'web登录', {}, modalOptions);
         return ;
       }

@@ -85,13 +85,14 @@ export async function dismissModal(options = {}) {
     }
 }
 
-export async function dismissModalAll(options){
-    await Navigation.dismissAllModals({});
-    if(options.callback){
-        options.callback()
+export async function dismissAllModals(options = {}) {
+    try {
+        await Navigation.dismissAllModals(options);
+    } catch (error) {
+        // RNN returns a promise rejection if there are no modals to
+        // dismiss. We'll do nothing in this case.
     }
 }
-
 
 export function goToScreen(name, title, passProps = {}, options = {}) {
     const componentId = EphemeralStore.getNavigationTopComponentId();
