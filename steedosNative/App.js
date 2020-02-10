@@ -26,6 +26,9 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 import { showModal, goToScreen } from './app/actions/navigation'
 import AsyncStorage from '@react-native-community/async-storage';
+import store from './app/store'; 
+import { saveAccounts } from './app/actions';
+
 const App: () => React$Node = () => {
 
   showApps = ()=>{
@@ -70,6 +73,7 @@ const App: () => React$Node = () => {
   }
 
   removeSteedosToken = async ()=>{
+    store.dispatch(saveAccounts({cookies: {}}))
     await AsyncStorage.removeItem("STEEDOS_ACCOUNTS_COOKIES");
   }
 

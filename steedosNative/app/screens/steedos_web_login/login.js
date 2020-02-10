@@ -42,7 +42,7 @@ class WebLoginView extends PureComponent {
         let { service, saveAccounts } = this.props
         
         let loadingEnded = ()=>{
-            saveAccounts({cookies: {}})
+            // saveAccounts({cookies: {}})
         }
 
         return (
