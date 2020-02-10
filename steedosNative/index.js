@@ -9,6 +9,9 @@ import { Navigation } from 'react-native-navigation';
 import store from './app/store';
 import EphemeralStore from 'app/store/ephemeral_store';
 import { changeSteedosService } from './app/actions/settings'
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+import {showModal} from 'app/actions/navigation';
+import { dataServicesSelector } from './app/selectors'
 
 export default function steedosInit(steedosService, inMatterMost) {
     if (steedosService) {
@@ -67,6 +70,24 @@ export default function steedosInit(steedosService, inMatterMost) {
         });
     }
 
+}
+
+
+export async function showSteedosSettings(){
+    let closeButton = await MaterialIcon.getImageSource('close', 20, "#ffffff")
+    const modalOptions = {
+        topBar: {
+            leftButtons: [{
+                id: 'close-settings',
+                icon: closeButton,
+            }],
+        },
+    };
+    showModal("SteedosSettings", '工作台', {}, modalOptions);
+}
+
+export function canShowSteedosSettings(props){
+    return 'right' === props.drawerPosition && dataServicesSelector(store.getState())
 }
 
 steedosInit("http://192.168.3.2:5000")
