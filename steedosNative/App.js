@@ -58,19 +58,19 @@ const App: () => React$Node = () => {
     return ;
   }
 
-  showLogin = ()=>{
-    // Alert.alert('Button with adjusted color pressed')
-    const modalOptions = {
-        topBar: {
-            leftButtons: [{
-                id: 'close-settings',
-                text: "关闭",
-            }],
-        },
-    };
-    showModal("SteedosLogin", '登录', {}, modalOptions);
-    return ;
-  }
+  // showLogin = ()=>{
+  //   // Alert.alert('Button with adjusted color pressed')
+  //   const modalOptions = {
+  //       topBar: {
+  //           leftButtons: [{
+  //               id: 'close-settings',
+  //               text: "关闭",
+  //           }],
+  //       },
+  //   };
+  //   showModal("SteedosLogin", '登录', {}, modalOptions);
+  //   return ;
+  // }
 
   removeSteedosToken = async ()=>{
     store.dispatch(saveAccounts({cookies: {}}))
@@ -114,10 +114,10 @@ const App: () => React$Node = () => {
               title="显示Apps"
               onPress={showApps}
             />
-            <Button
+            {/* <Button
               title="Steedos 登录"
               onPress={showLogin}
-            />
+            /> */}
             <Button
               title="Steedos Web 登录"
               onPress={showWebLogin}

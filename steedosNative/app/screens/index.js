@@ -13,6 +13,6 @@ export function registerScreens(store, Provider) {
     );
     Navigation.registerComponent('SteedosSettings', () => wrapper(require('./steedos_settings').default), () => require('./steedos_settings').default);
     Navigation.registerComponent('SteedosAppView', () => wrapper(require('./steedos_app_view').default), () => require('./steedos_app_view').default);
-    Navigation.registerComponent('SteedosLogin', () => wrapper(require('./steedos_login').default), () => require('./steedos_login').default);
+    // Navigation.registerComponent('SteedosLogin', () => wrapper(require('./steedos_login').default), () => require('./steedos_login').default);
     Navigation.registerComponent('SteedosWebViewLogin', () => wrapper(require('./steedos_web_login').default), () => require('./steedos_web_login').default);
 }
