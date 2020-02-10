@@ -17,7 +17,6 @@
     "react-intl": "^3.11.0",
     "react-native": "0.61.5",
     "react-native-button": "^2.4.0",
-    "react-native-cookies": "github:mattermost/react-native-cookies#a54c0ffd28679871dd11e3396d8382cc8ff204d1",
     "react-native-keyboard-aware-scroll-view": "^0.9.1",
     "react-native-navigation": "^4.5.3",
     "react-native-svg": "^11.0.1",

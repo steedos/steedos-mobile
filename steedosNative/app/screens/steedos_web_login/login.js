@@ -9,7 +9,6 @@ import { WebView } from 'react-native-webview';
 import { injectIntl } from 'react-intl';
 import { Navigation } from 'react-native-navigation';
 import { dismissModal } from 'app/actions/navigation'
-import CookieManager from 'react-native-cookies';
 import WebLoadingView from '../../components/web_loading'
 import _ from 'underscore'
 
@@ -32,25 +31,18 @@ class WebLoginView extends PureComponent {
         }
     }
 
-    componentWillUnmount(){
-        if(this.setIntervalId){
-            clearInterval(this.setIntervalId);
-        }
+    onMessage = (event) => {
+        let accountsData = JSON.parse(event.nativeEvent.data)
+        let { saveAccounts } = this.props
+        saveAccounts({cookies: accountsData});
+        dismissModal();
     }
 
     render() {
         let { service, saveAccounts } = this.props
+        
         let loadingEnded = ()=>{
-            this.setIntervalId = setInterval(() => {
-                CookieManager.get(service, true)
-                .then(async (res) => {
-                    if(!_.isEmpty(res)){
-                        saveAccounts({cookies: res});
-                        dismissModal();
-                        clearInterval(this.setIntervalId);
-                    }
-                });
-            }, 300);
+            saveAccounts({cookies: {}})
         }
 
         return (
@@ -60,6 +52,7 @@ class WebLoginView extends PureComponent {
                 sharedCookiesEnabled={true}
                 startInLoadingState={true}
                 renderLoading={() => { return <WebLoadingView /> }}
+                onMessage={this.onMessage}
             />
         );
     }

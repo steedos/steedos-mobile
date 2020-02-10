@@ -25,7 +25,6 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import { showModal, goToScreen } from './app/actions/navigation'
-import CookieManager from 'react-native-cookies';
 import AsyncStorage from '@react-native-community/async-storage';
 const App: () => React$Node = () => {
 
@@ -72,9 +71,6 @@ const App: () => React$Node = () => {
 
   removeSteedosToken = async ()=>{
     await AsyncStorage.removeItem("STEEDOS_ACCOUNTS_COOKIES");
-    CookieManager.clearAll().then((res)=>{
-      console.log('CookieManager.clearAll res====>', res);
-    })
   }
 
   return (
