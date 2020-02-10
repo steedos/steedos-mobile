@@ -86,8 +86,19 @@ export async function showSteedosSettings(){
     showModal("SteedosSettings", '工作台', {}, modalOptions);
 }
 
+export function hasSteedosApps(){
+    return dataServicesSelector(store.getState())
+}
+
 export function canShowSteedosSettings(props){
-    return 'right' === props.drawerPosition && dataServicesSelector(store.getState())
+    return 'right' === props.drawerPosition && hasSteedosApps()
+}
+
+export function getSettingsIcon(){
+    if(hasSteedosApps()){
+        return 'md-apps'
+    }
+    return 'md-more'
 }
 
 steedosInit("http://192.168.3.2:5000")
