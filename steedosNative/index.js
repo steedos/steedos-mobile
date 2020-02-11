@@ -101,4 +101,4 @@ export function getSettingsIcon(){
     return 'md-more'
 }
 
-steedosInit("http://192.168.3.2:5000")
+// steedosInit("local service")
