@@ -55,6 +55,8 @@ yarn add file:../steedos-mobile/steedosNative
         }
         ```
 
+## [手机端左下角的加号，点击后增加一个选项 视频会议 ，就是发起zoom会议] (https://github.com/steedos/mattermost-mobile/commit/874738133db6feb24b543f79ad3e44aa27845d4c)
+
 ## OEM
 
 ```bash
