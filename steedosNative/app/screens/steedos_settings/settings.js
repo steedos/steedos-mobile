@@ -29,7 +29,7 @@ class Settings extends PureComponent {
             },
         };
         console.log('====.closeButton', closeButton);
-        showModal("SteedosWebViewLogin", 'web登录', {}, modalOptions);
+        showModal("SteedosWebViewLogin", '登录', {}, modalOptions);
         return ;
       }
 
