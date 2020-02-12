@@ -9,8 +9,8 @@ https://developers.mattermost.com/contribute/mobile/build-your-own/preparation/
 在mac上执行以下命令
 
 ```bash
-git clone https://github.com/mattermost/mattermost-mobile
-git checkout release-1.27 # 最新版本分支
+git clone https://github.com/steedos/mattermost-mobile
+git checkout steedos-1.27 # 最新版本分支
 cd mattermost-mobile
 yarn
 pod repo update
