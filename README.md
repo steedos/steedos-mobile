@@ -15,7 +15,7 @@ cd mattermost-mobile
 yarn
 pod repo update
 make pre-run
-make ios
+make run-ios
 ```
 
 如果报 mattemost-redux 错误，可能是因为包没编译
@@ -63,6 +63,14 @@ yarn add file:../steedos-mobile/steedosNative
 cp -r ./mattermost-mobile/assets/override ../mattermost-mobile/assets/override
 cp ./mattermost-mobile/fastlane/.env ../mattermost-mobile/fastlane/.env
 
+```
+
+## 更换图标及签名等(fastlane)
+```bash
+sudo gem install fastlane
+cd fastlane
+fastlane ios replace_assets
+fastlane android replace_assets 
 ```
 
 ## 编译 ios
