@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import {intlShape, injectIntl} from 'react-intl';
 import {Navigation} from 'react-native-navigation';
-import { dismissModal, showModal, goToScreen } from 'app/actions/navigation'
+import { dismissModal, showModal, goToScreen, dismissAllModals } from 'app/actions/navigation'
 import AsyncStorage from '@react-native-community/async-storage';
 import _ from 'underscore'
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -28,7 +28,6 @@ class Settings extends PureComponent {
                 }],
             },
         };
-        console.log('====.closeButton', closeButton);
         showModal("SteedosWebViewLogin", '登录', {}, modalOptions);
         return ;
       }
@@ -58,6 +57,10 @@ class Settings extends PureComponent {
     navigationButtonPressed({buttonId}) {
         if (buttonId === 'close-settings') {
             dismissModal();
+        }else if(buttonId === 'open-more'){
+            dismissAllModals();
+            const { openSettings } = this.props
+            openSettings({openSettingsDrawer: true})
         }
     }
 
@@ -66,7 +69,7 @@ class Settings extends PureComponent {
     }
 
     render() {
-        //TODO： 根据creator中Apps的显示规则封装getApps函数。
+        //TODO： 根据creator中Apps的显示规则封装getApps函数。   
         const {rows:apps} = this.props
         let data = [];
         sortedApps = _.sortBy(_.values(apps), 'sort')

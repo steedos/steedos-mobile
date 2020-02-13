@@ -73,17 +73,22 @@ export default function steedosInit(steedosService, inMatterMost) {
 }
 
 
-export async function showSteedosSettings(){
+export async function showSteedosSettings(options){
     let closeButton = await MaterialIcon.getImageSource('close', 20, "#ffffff")
+    let moreButton = await MaterialIcon.getImageSource('settings', 20, "#ffffff")
     const modalOptions = {
         topBar: {
             leftButtons: [{
                 id: 'close-settings',
                 icon: closeButton,
             }],
+            rightButtons: [{
+                id: 'open-more',
+                icon: moreButton,
+            }]
         },
     };
-    showModal("SteedosSettings", '工作台', {}, modalOptions);
+    showModal("SteedosSettings", '工作台', {openMore: options.openSettings}, modalOptions);
 }
 
 export function hasSteedosApps(){
