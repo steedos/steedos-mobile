@@ -69,7 +69,9 @@ cp ./mattermost-mobile/fastlane/.env ../mattermost-mobile/fastlane/.env
 ```bash
 sudo gem install fastlane
 cd fastlane
+fastlane ios update_identifiers
 fastlane ios replace_assets
+fastlane android update_identifiers
 fastlane android replace_assets 
 ```
 
