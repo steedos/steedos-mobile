@@ -50,7 +50,7 @@ yarn add file:../steedos-mobile/steedosNative
       ```
     - 在 `openDrawer` 函数的第一行添加代码 
         ```javascript
-        if(!options.openSettingsDrawer && canShowSteedosSettings(this.props)){
+        if(canShowSteedosSettings(this.props, options)){
             return showSteedosSettings({openSettings: this.openDrawer});
         }
         ```

@@ -12,6 +12,7 @@ import { changeSteedosService } from './app/actions/settings'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import {showModal} from 'app/actions/navigation';
 import { dataServicesSelector } from './app/selectors'
+import _ from 'underscore'
 
 export default function steedosInit(steedosService, inMatterMost) {
     if (steedosService) {
@@ -88,15 +89,20 @@ export async function showSteedosSettings(options){
             }]
         },
     };
-    showModal("SteedosSettings", '工作台', {openMore: options.openSettings}, modalOptions);
+    showModal("SteedosSettings", '工作台', {openSettings: options.openSettings}, modalOptions);
 }
 
 export function hasSteedosApps(){
     return dataServicesSelector(store.getState())
 }
 
-export function canShowSteedosSettings(props){
-    return 'right' === props.drawerPosition && hasSteedosApps()
+export function canShowSteedosSettings(props, options){
+    if(options.openSettingsDrawer){
+        return false;
+    }else if(_.has(options, 'velocity')){
+        return false;
+    }
+    return 'right' === props.drawerPosition && hasSteedosApps();
 }
 
 export function getSettingsIcon(){
