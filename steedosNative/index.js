@@ -80,7 +80,7 @@ export async function showSteedosSettings(options){
     const modalOptions = {
         topBar: {
             leftButtons: [{
-                id: 'close-settings',
+                id: 'close-web-view', //id: 'close-settings',
                 icon: closeButton,
             }],
             rightButtons: [{
@@ -89,7 +89,8 @@ export async function showSteedosSettings(options){
             }]
         },
     };
-    showModal("SteedosSettings", '工作台', {openSettings: options.openSettings}, modalOptions);
+    showModal("SteedosWebView", '工作台', {openSettings: options.openSettings}, modalOptions);
+    // showModal("SteedosSettings", '工作台', {openSettings: options.openSettings}, modalOptions);
 }
 
 export function hasSteedosApps(){
