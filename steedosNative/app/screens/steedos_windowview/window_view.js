@@ -29,9 +29,7 @@ class SteedosWindowView extends PureComponent {
 
     setTitle(title){
         const {componentId}=this.props
-        console.log('setTitle', componentId, title);
         Navigation.mergeOptions(componentId, {topBar: {title: {text: title}}})
-        // this.props.navigation.setParams({text: title || ''})
     }
 
     
@@ -54,18 +52,15 @@ class SteedosWindowView extends PureComponent {
                     source={{ url }}
                     startInLoadingState = {true}
                     renderLoading = {()=>{return <WebLoadingView/>}}
-                    injectedJavaScript={setWindowTitle}
-                    onMessage={event => {
-                        console.log('Navigation.mergeOptions', Navigation.mergeOptions)
-                        console.log('event.nativeEvent.data', event.nativeEvent.data);
-                        if(event.nativeEvent.data){
-                            let data = JSON.parse(event.nativeEvent.data);
-                            console.log('data', data)
-                            if(data.windowTitle){
-                                this.setTitle(data.windowTitle)
-                            }
-                        }
-                    }}
+                    // injectedJavaScript={setWindowTitle}
+                    // onMessage={event => {
+                    //     if(event.nativeEvent.data){
+                    //         let data = JSON.parse(event.nativeEvent.data);
+                    //         if(data.windowTitle){
+                    //             this.setTitle(data.windowTitle)
+                    //         }
+                    //     }
+                    // }}
                 />
         );
     }
