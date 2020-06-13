@@ -93,6 +93,19 @@ export async function showSteedosSettings(options){
     // showModal("SteedosSettings", '工作台', {openSettings: options.openSettings}, modalOptions);
 }
 
+export async function windowOpen(options){
+    let closeButton = await MaterialIcon.getImageSource('close', 20, "#ffffff")
+    const modalOptions = {
+        topBar: {
+            leftButtons: [{
+                id: 'close-window-view', //id: 'close-settings',
+                icon: closeButton,
+            }],
+        },
+    };
+    showModal("SteedosWindowView", options.title, {url: options.url}, modalOptions);
+}
+
 export function hasSteedosApps(){
     return dataServicesSelector(store.getState())
 }
