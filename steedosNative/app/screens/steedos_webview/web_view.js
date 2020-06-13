@@ -63,6 +63,7 @@ class SteedosWebView extends PureComponent {
                         url = window.location.origin + prefix + '/' + url
                     }
                 }
+                alert('postMessage url: ' + url);
                 window.ReactNativeWebView.postMessage(url)
             }
         `;
@@ -73,7 +74,8 @@ class SteedosWebView extends PureComponent {
                     renderLoading = {()=>{return <WebLoadingView/>}}
                     injectedJavaScript={overrideWindowOpen}
                     onMessage={event => {
-                        windowOpen({title: '', url: event.nativeEvent.data});
+                        alert('onMessage url:' + event.nativeEvent.data);
+                        windowOpen({title: '111', url: event.nativeEvent.data});
                     }}
                 />
         );

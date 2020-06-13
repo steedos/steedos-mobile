@@ -37,7 +37,7 @@ class SteedosWindowView extends PureComponent {
     render() {
         let {isLoading} = this.state
         let { url } = this.props
-
+        alert('window url:' +  url);
         const setWindowTitle = `
             setInterval(function(){
                 window.ReactNativeWebView.postMessage(JSON.stringify({"windowTitle": document.title}))
