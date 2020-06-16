@@ -51,6 +51,11 @@ class SteedosWebView extends PureComponent {
         }
     }
 
+    setTitle(title){
+        const {componentId}=this.props
+        Navigation.mergeOptions(componentId, {topBar: {title: {text: title}}})
+    }
+
     render() {
         let {isLoading, downloading} = this.state
         let { service } = this.props
@@ -83,6 +88,10 @@ class SteedosWebView extends PureComponent {
             window.SteedosBrower.downloadAndPreviewFile = function(file){
                 window.ReactNativeWebView.postMessage(JSON.stringify({downloadAndPreviewFile: {file: file}}))
             }
+
+            window.SteedosBrower.setWindowTitle = function(title){
+                window.ReactNativeWebView.postMessage(JSON.stringify({setWindowTitle: {title: title}}))
+            }
         `;
         return (
             <View style={{flex: 1}}>
@@ -114,6 +123,9 @@ class SteedosWebView extends PureComponent {
                                 setTimeout(()=>{
                                     this.setState({downloading: false});
                                 }, 1800)
+                            }
+                            if(data.setWindowTitle){
+                                this.setTitle(data.setWindowTitle.title)
                             }
                         }
                     }}
