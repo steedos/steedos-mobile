@@ -18,6 +18,44 @@ make pre-run
 make run-ios
 ```
 
+# 华信
+Mac编译过程
+
+
+## 安装依赖包
+```
+fanslane
+
+yarn
+yarn --cwd node_modules/mattermost-redux
+
+cd ios
+pod install
+cd ..
+```
+
+## 配置安卓签名
+创建或修改文件 ~/.gradle/gradle.properties，增加类似参数:
+```
+MATTERMOST_RELEASE_STORE_FILE=/Users/steedos/Documents/Github/steedos-certs/android/android.keystore
+MATTERMOST_RELEASE_KEY_ALIAS=android
+MATTERMOST_RELEASE_PASSWORD=A...
+```
+
+## 安卓编译
+```
+git checkout -- android
+rm -rf ./android/app/src/main/java/com/steedos
+make build-android
+```
+
+## iOS编译
+```
+git checkout -- ios
+make build-ios
+```
+编译之后会报Provision Profile错误，然后用xcode运行ios项目。
+
 如果报 mattemost-redux 错误，可能是因为包没编译
 
 ```bash
