@@ -6,3 +6,4 @@ export function makeNewID(props){
 export * from './key_mirror'
 export * from './accounts'
 export * from './cookies'
+export * from './steedos_browser'

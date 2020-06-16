@@ -36,8 +36,7 @@ class SteedosWindowView extends PureComponent {
 
     render() {
         let {isLoading} = this.state
-        let { url } = this.props
-        alert('window url:' +  url);
+        let { url:uri } = this.props
         const setWindowTitle = `
             setInterval(function(){
                 window.ReactNativeWebView.postMessage(JSON.stringify({"windowTitle": document.title}))
@@ -49,7 +48,7 @@ class SteedosWindowView extends PureComponent {
         }
         return (
             <WebView 
-                    source={{ url }}
+                    source={{ uri }}
                     startInLoadingState = {true}
                     renderLoading = {()=>{return <WebLoadingView/>}}
                     // injectedJavaScript={setWindowTitle}

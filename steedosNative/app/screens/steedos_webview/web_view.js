@@ -3,24 +3,33 @@
 
 import React, {PureComponent} from 'react';
 import {
-    View,Text, StyleSheet
+    Alert,
+    Platform,
+    StyleSheet,
+    View,
 } from 'react-native';
 import { WebView } from 'react-native-webview';
 import {intlShape, injectIntl} from 'react-intl';
 import {Navigation} from 'react-native-navigation';
 import { dismissModal, dismissAllModals } from 'app/actions/navigation'
+import FormattedText from 'app/components/formatted_text';
 import WebLoadingView from '../../components/web_loading'
-import { getUserId,getAuthToken } from '../../utils/accounts'
 import {windowOpen} from '../../../index'
-
+import {downloadAndPreviewFile} from '../../utils/index'
+import {changeOpacity} from 'app/utils/theme';
 class SteedosWebView extends PureComponent {
 
     constructor(props) {
     　　super(props)
     　　this.state = {
     　　　　isLoading: true,
+           downloading: false
     　　}
     }
+
+    static contextTypes = {
+        intl: intlShape,
+    };
 
     // async UNSAFE_componentWillMount(){
     //     this.userId = await getUserId()
@@ -43,7 +52,7 @@ class SteedosWebView extends PureComponent {
     }
 
     render() {
-        let {isLoading} = this.state
+        let {isLoading, downloading} = this.state
         let { service } = this.props
         if(!isLoading){
             return (<></>)
@@ -63,23 +72,74 @@ class SteedosWebView extends PureComponent {
                         url = window.location.origin + prefix + '/' + url
                     }
                 }
-                alert('postMessage url: ' + url);
-                window.ReactNativeWebView.postMessage(url)
+                window.ReactNativeWebView.postMessage(JSON.stringify({windowOpen: {url: url}}))
+            }
+
+            if(!window.SteedosBrower){
+                window.SteedosBrower = {};
+            }
+
+            //file: {url:'', caption:'', data: {id: '', name: '', extension: ''}}
+            window.SteedosBrower.downloadAndPreviewFile = function(file){
+                window.ReactNativeWebView.postMessage(JSON.stringify({downloadAndPreviewFile: {file: file}}))
             }
         `;
         return (
-            <WebView 
+            <View style={{flex: 1}}>
+                <WebView 
                     source={{ uri }}
                     startInLoadingState = {true}
                     renderLoading = {()=>{return <WebLoadingView/>}}
                     injectedJavaScript={overrideWindowOpen}
-                    onMessage={event => {
-                        alert('onMessage url:' + event.nativeEvent.data);
-                        windowOpen({title: '111', url: event.nativeEvent.data});
+                    onMessage={async (event) => {
+                        if(event.nativeEvent.data){
+                            let data = JSON.parse(event.nativeEvent.data);
+                            if(data.windowOpen && data.windowOpen.url){
+                                if(data.windowOpen.url.indexOf('/api/files') > -1){
+                                    let _data = data.windowOpen.url.split('/');
+                                    let last = _data[_data.length - 1];
+                                    last = last.split('?')[0];
+                                    this.setState({downloading: true});
+                                    await downloadAndPreviewFile({url: data.windowOpen.url, data: {id: last, name: last}}, {context: this.context})
+                                    setTimeout(()=>{
+                                        this.setState({downloading: false});
+                                    }, 1800)
+                                }else{
+                                    windowOpen({title: data.windowOpen.title || '', url: data.windowOpen.url});
+                                }
+                            }
+                            if(data.downloadAndPreviewFile && data.downloadAndPreviewFile.file){
+                                this.setState({downloading: true});
+                                await downloadAndPreviewFile(data.downloadAndPreviewFile.file, {context: this.context})
+                                setTimeout(()=>{
+                                    this.setState({downloading: false});
+                                }, 1800)
+                            }
+                        }
                     }}
                 />
+                {downloading && <View style={style.loadingContainer}>
+                    <FormattedText
+                        id='mobile.downloading'
+                        defaultMessage='下载中...'
+                        style={{color: "#ffffff"}}
+                    />
+                </View>}
+            </View>
         );
     }
 }
 
 export default injectIntl(SteedosWebView);
+
+const style = StyleSheet.create({
+    loadingContainer: {
+        zIndex: 9999,
+        position: "absolute",
+        backgroundColor: changeOpacity("#3d3c40", 0.4),
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: "100%",
+        width: "100%"
+    },
+});
