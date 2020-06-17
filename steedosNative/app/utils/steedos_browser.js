@@ -72,7 +72,7 @@ function  openDocument(file, context, delay = 2000){
             }
         }else{
             OpenFile.openDoc([{
-                url: file.url || `${prefix}${path}`,
+                url: `${prefix}${path}`,
                 fileNameOptional: file.caption,
                 fileName: encodeURI(data.name.split('.').slice(0, -1).join('.')),
                 fileType: data.extension,
@@ -163,9 +163,20 @@ export async function downloadAndPreviewFile(file, options){
 
             if(!file.caption){
                 file.caption = file.data.id + '.' +  file.data.extension
-                await RNFetchBlob.fs.mv(path, `${DOCUMENTS_PATH}/${data.id}-${file.caption}`)
+                file.data.name = file.caption
+                const exist = await RNFetchBlob.fs.exists(`${DOCUMENTS_PATH}/${data.id}-${file.caption}`);
+                if(exist){
+                    openDocument(file, options.context);
+                    return;
+                }else{
+                    if(Platform.OS === 'android'){
+                        await RNFetchBlob.fs.mv(path, `${DOCUMENTS_PATH}/${data.id}-${file.caption}`)
+                    }else{
+                        await RNFetchBlob.fs.cp(path, `${DOCUMENTS_PATH}/${data.id}-${file.caption}`);
+                        await RNFetchBlob.fs.unlink(path);
+                    }
+                }
             }
-            
             openDocument(file, options.context);
         }
     } catch (error) {
