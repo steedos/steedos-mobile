@@ -2926,9 +2926,9 @@ getpass@^0.1.1:
     assert-plus "^1.0.0"
 
 glob-parent@^5.0.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/glob-parent/-/glob-parent-5.1.0.tgz#5f4c1d1e748d30cd73ad2944b3577a81b081e8c2"
-  integrity sha512-qjtRgnIVmOfnKUE3NJAQEdk+lKrxfw8t5ke7SXtfMTHcjsBfOfWXCQfdb30zfDoZQ2IRSIiidmjtbHZPZ++Ihw==
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/glob-parent/-/glob-parent-5.1.2.tgz#869832c58034fe68a4093c17dc15e8340d8401c4"
+  integrity sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow==
   dependencies:
     is-glob "^4.0.1"
 
@@ -3209,7 +3209,7 @@ intl-messageformat@^7.8.2:
     intl-format-cache "^4.2.19"
     intl-messageformat-parser "^3.6.2"
 
-invariant@2.2.4, invariant@^2.1.0, invariant@^2.2.4:
+invariant@2.2.4, invariant@^2.2.4:
   version "2.2.4"
   resolved "https://registry.yarnpkg.com/invariant/-/invariant-2.2.4.tgz#610f3c92c9359ce1db616e538008d23ff35158e6"
   integrity sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA==
@@ -5279,12 +5279,6 @@ react-native-button@^2.4.0:
   integrity sha512-4siaJlpOLeL9fAhX8VU3cnUfcGLe3E2zABDWSKxkF+NiYOd+AnKeYY29WXlV8hXhCFo+Ry7E+alrJ6zjZLTSfg==
   dependencies:
     prop-types "^15.5.10"
-
-"react-native-cookies@github:mattermost/react-native-cookies#a54c0ffd28679871dd11e3396d8382cc8ff204d1":
-  version "3.4.0"
-  resolved "https://codeload.github.com/mattermost/react-native-cookies/tar.gz/a54c0ffd28679871dd11e3396d8382cc8ff204d1"
-  dependencies:
-    invariant "^2.1.0"
 
 react-native-iphone-x-helper@^1.0.3:
   version "1.2.1"
