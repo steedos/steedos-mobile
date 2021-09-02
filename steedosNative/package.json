@@ -12,7 +12,7 @@
   "dependencies": {
     "@react-native-community/async-storage": "^1.7.1",
     "base-64": "^0.1.0",
-    "immer": "^5.3.3",
+    "immer": "^9.0.6",
     "react": "16.9.0",
     "react-intl": "^3.11.0",
     "react-native": "0.61.5",
